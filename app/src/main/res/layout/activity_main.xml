@@ -4,79 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_dark"
+    android:background="@color/colorBG"
     tools:context="co.gostyn.karson.medijgastronomia.MainActivity">
 
-
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/bg_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/logo2" />
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_start" />
+
 
     <ImageView
-        android:id="@+id/tvMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/medij_logo2"
-        android:textSize="40sp" />
+        android:id="@+id/button_medij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:padding="15dp"
+        android:src="@drawable/medij_logo_white" />
 
-    <LinearLayout
-        android:id="@+id/ll1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvMenu"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/ic_restaurant" />
-
-        <TextView
-            android:id="@+id/lokal1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Lokal Gastronomiczny KAPI\nul. Sikorskiego 4a"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll2"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll1"
+        android:layout_above="@+id/button_medij"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
+        android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/ic_restaurant"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_restaurant"
+        android:padding="15dp"
+        android:text="@string/start_button2_txt"
+        android:textColor="#FFFFFF" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/ic_restaurant" />
-
-        <TextView
-            android:id="@+id/lokal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Sala bankietowa MEDIJ\nul. Wielkopolska 1"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/ic_restaurant"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_restaurant"
+        android:padding="15dp"
+        android:text="@string/start_button1_txt"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>
