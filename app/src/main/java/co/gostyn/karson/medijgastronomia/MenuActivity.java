@@ -5,10 +5,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -17,19 +26,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.gostyn.karson.medijgastronomia.adapter.MenuObjectAdapter;
+
 import co.gostyn.karson.medijgastronomia.objects.Keys;
 import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 import co.gostyn.karson.medijgastronomia.parser.JSONParser;
 import co.gostyn.karson.medijgastronomia.utils.InternetConnection;
+
 
 public class MenuActivity extends AppCompatActivity {
 
     private ListView listView;
     private ArrayList<MenuObject> list;
     private String data;
-    private MenuObjectAdapter adapter;
+    private MenuObjectAdapter adapter2;
+    public MenuObjectAdapter adapter1;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +58,18 @@ public class MenuActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+
+
         /**
          * Array List for Binding Data from JSON to this List
          */
@@ -47,19 +77,19 @@ public class MenuActivity extends AppCompatActivity {
         /**
          * Binding that List to Adapter
          */
-        adapter = new MenuObjectAdapter(this, list);
+        adapter2 = new MenuObjectAdapter(this, list);
 
         /**
          * Getting List and Setting List Adapter
          */
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       // listView = (ListView) findViewById(R.id.listView);
+      // listView.setAdapter(adapter2);
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Snackbar.make(findViewById(R.id.parentLayout), list.get(position).getNazwa() + " => " + list.get(position).getOpis1(), Snackbar.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         //jezeli jest polaczenie to pobiera JSona i tworzy liste pozycji menu
         if (InternetConnection.checkConnection(getApplicationContext())) {
@@ -207,7 +237,7 @@ public class MenuActivity extends AppCompatActivity {
              * Update ListView
              */
             if (list.size() > 0) {
-                adapter.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
             } else {
                 Snackbar.make(findViewById(R.id.parentLayout), "No Data Found", Snackbar.LENGTH_LONG).show();
             }
@@ -215,4 +245,45 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MenuFragment(), "ONE");
+        adapter.addFragment(new MenuFragment(), "TWO");
+        adapter.addFragment(new MenuFragment(), "THREE");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
+
 }
+
+
