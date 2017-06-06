@@ -1,5 +1,6 @@
 package co.gostyn.karson.medijgastronomia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.button1)
     Button button1;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button2:
+                intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
+
                 break;
             case R.id.button1:
                 break;
         }
+
     }
 }
