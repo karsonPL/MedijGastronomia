@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +41,7 @@ public class MenuFragment extends Fragment {
     TextView tvMenuFragment;
     @Bind(R.id.listView)
     ListView listView;
+    MenuObject abc;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -64,9 +64,15 @@ public class MenuFragment extends Fragment {
 
         list = new ArrayList<>();
 
+
+
         adapter2 = new MenuObjectAdapter(container.getContext(), list);
         listView.setAdapter(adapter2);
         new GetDataTask2().execute();
+
+
+
+
 
         return view;
     }
@@ -86,6 +92,8 @@ public class MenuFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+
 
     class GetDataTask2 extends AsyncTask<Void, Void, Void> {
 

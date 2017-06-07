@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.button1:
+                intent = new Intent(this, Menu2Activity.class);
+                startActivity(intent);
                 break;
         }
 
