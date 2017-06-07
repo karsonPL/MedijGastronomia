@@ -91,7 +91,7 @@ private MenuObject abc;
 
         //jezeli jest polaczenie to pobiera JSona i tworzy liste pozycji menu
         if (InternetConnection.checkConnection(getApplicationContext())) {
-            new GetDataTask().execute();
+           // new GetDataTask().execute();
         } else {
             Snackbar.make(findViewById(R.id.parentLayout), "Internet Connection Not Available", Snackbar.LENGTH_LONG).show();
         }
@@ -124,6 +124,46 @@ private MenuObject abc;
     /**
      * Creating Get Data Task for Getting Data From Web
      */
+
+
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MenuFragment(), "ONE");
+        adapter.addFragment(new MenuFragment(), "TWO");
+        adapter.addFragment(new MenuFragment(), "THREE");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
     class GetDataTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
@@ -184,12 +224,17 @@ private MenuObject abc;
                                  *
                                  */
                                 JSONObject innerObject = array.getJSONObject(jIndex);
-                                String rodzaj = innerObject.getString(Keys.KEY_RODZAJ);
-                                String nazwa = innerObject.getString(Keys.KEY_NAZWA);
-                                String opis1 = innerObject.getString(Keys.KEY_OPIS1);
-                                String opis2 = innerObject.getString(Keys.KEY_OPIS2);
-                                String ilosc = innerObject.getString(Keys.KEY_ILOSC);
-                                String cena = innerObject.getString(Keys.KEY_CENA);
+                                String day = innerObject.getString(Keys.KEY_DAY);
+                                String data= innerObject.getString(Keys.KEY_DATA);
+                                String dayName= innerObject.getString(Keys.KEY_DAY_NAME);
+                                String lok1open = innerObject.getString(Keys.KEY_LOK1_OD);
+                                String lok1close = innerObject.getString(Keys.KEY_LOK1_DO);
+                                String lok2open = innerObject.getString(Keys.KEY_LOK2_OD);
+                                String lok2close = innerObject.getString(Keys.KEY_LOK2_DO);
+                                // String menuHTML = innerObject.getString(Keys.KEY_MENU_HTML);
+
+
+
 
                                 //Log.e("KARSON", name + " - " + email);
                                 // String image = innerObject.getString(Keys.KEY_PROFILE_PIC);
@@ -199,21 +244,21 @@ private MenuObject abc;
                                  JSONObject phoneObject = innerObject.getJSONObject(Keys.KEY_PHONE);
                                  String phone = phoneObject.getString(Keys.KEY_MOBILE);
                                  */
-                                model.setRodzaj(rodzaj);
-                                model.setNazwa(nazwa);
-                                model.setOpis1(opis1);
-                                model.setOpis2(opis2);
-                                model.setIlosc(ilosc);
-                                model.setCena(cena);
+                                model.setDay(day);
+                                model.setData(data);
+                                model.setDayName(dayName);
+                                model.setLok1open(lok1open);
+                                model.setLok1close(lok1close);
+                                model.setLok2open(lok2open);
+                                model.setLok2close(lok2close);
+                                // model.setMenuHTML(menuHTML);
 
                                 /**
                                  * Adding name and phone concatenation in List...
                                  */
-                                if (!rodzaj.contains("czynne") && !rodzaj.contains("data")) {
-                                    list.add(model);
-                                } else if (rodzaj.contains("data")) {
-                                    data = nazwa;
-                                }
+
+                                // list.add(model);
+
                             }
                         }
                     }
@@ -235,52 +280,12 @@ private MenuObject abc;
              * Update ListView
              */
             if (list.size() > 0) {
-                adapter2.notifyDataSetChanged();
+                // adapter2.notifyDataSetChanged();
             } else {
                 Snackbar.make(findViewById(R.id.parentLayout), "No Data Found", Snackbar.LENGTH_LONG).show();
             }
         }
     }
-
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MenuFragment(), "ONE");
-        adapter.addFragment(new MenuFragment(), "TWO");
-        adapter.addFragment(new MenuFragment(), "THREE");
-        viewPager.setAdapter(adapter);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-
 
 }
 

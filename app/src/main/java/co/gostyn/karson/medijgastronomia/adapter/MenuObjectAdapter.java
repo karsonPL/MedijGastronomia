@@ -45,11 +45,11 @@ public class MenuObjectAdapter extends ArrayAdapter<MenuObject> {
 
         MenuObject item = getItem(position);
 
-        vh.tvNazwa.setText(item.getNazwa());
-        vh.tvOpis1.setText(item.getOpis1());
-        vh.tvOpis2.setText(item.getOpis2());
-        vh.tvIlosc.setText(item.getIlosc());
-        vh.tvCena.setText(item.getCena());
+//        vh.tvNazwa.setText(item.getNazwa());
+//        vh.tvOpis1.setText(item.getOpis1());
+//        vh.tvOpis2.setText(item.getOpis2());
+//        vh.tvIlosc.setText(item.getIlosc());
+//        vh.tvCena.setText(item.getCena());
         // Picasso.with(context).load(item.getImage()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.imageView);
 
         return vh.rootView;

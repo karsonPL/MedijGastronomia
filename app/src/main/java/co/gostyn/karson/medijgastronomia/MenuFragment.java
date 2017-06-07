@@ -68,7 +68,7 @@ public class MenuFragment extends Fragment {
 
         adapter2 = new MenuObjectAdapter(container.getContext(), list);
         listView.setAdapter(adapter2);
-        new GetDataTask2().execute();
+      //  new GetDataTask2().execute();
 
 
 
@@ -95,98 +95,5 @@ public class MenuFragment extends Fragment {
 
 
 
-    class GetDataTask2 extends AsyncTask<Void, Void, Void> {
 
-        ProgressDialog dialog;
-
-
-
-        @Nullable
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            /**
-             * Getting JSON Object from Web Using okHttp
-             */
-            JSONObject jsonObject = JSONParser.getDataFromWeb();
-
-            try {
-                /**
-                 * Check Whether Its NULL???
-                 */
-                if (jsonObject != null) {
-                    /**
-                     * Check Length...
-                     */
-                    if (jsonObject.length() > 0) {
-                        /**
-                         * Getting Array named "menu" From MAIN Json Object
-                         */
-                        JSONArray array = jsonObject.getJSONArray(Keys.KEY_MENU);
-
-                        /**
-                         * Check Length of Array...
-                         */
-                        int lenArray = array.length();
-                        if (lenArray > 0) {
-                            for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-
-                                /**
-                                 * Creating Every time New Object
-                                 * and
-                                 * Adding into List
-                                 */
-                                MenuObject model = new MenuObject();
-
-                                /**
-                                 * Getting Inner Object from contacts array...
-                                 * and
-                                 * From that We will get Name of that Contact
-                                 *
-                                 */
-                                JSONObject innerObject = array.getJSONObject(jIndex);
-                                String rodzaj = innerObject.getString(Keys.KEY_RODZAJ);
-                                String nazwa = innerObject.getString(Keys.KEY_NAZWA);
-                                String opis1 = innerObject.getString(Keys.KEY_OPIS1);
-                                String opis2 = innerObject.getString(Keys.KEY_OPIS2);
-                                String ilosc = innerObject.getString(Keys.KEY_ILOSC);
-                                String cena = innerObject.getString(Keys.KEY_CENA);
-
-                                //Log.e("KARSON", name + " - " + email);
-                                // String image = innerObject.getString(Keys.KEY_PROFILE_PIC);
-
-                                /**
-                                 * Getting Object from Object "phone"
-                                 JSONObject phoneObject = innerObject.getJSONObject(Keys.KEY_PHONE);
-                                 String phone = phoneObject.getString(Keys.KEY_MOBILE);
-                                 */
-                                model.setRodzaj(rodzaj);
-                                model.setNazwa(nazwa);
-                                model.setOpis1(opis1);
-                                model.setOpis2(opis2);
-                                model.setIlosc(ilosc);
-                                model.setCena(cena);
-
-                                /**
-                                 * Adding name and phone concatenation in List...
-                                 */
-                                if (!rodzaj.contains("czynne") && !rodzaj.contains("data")) {
-                                    list.add(model);
-                                } else if (rodzaj.contains("data")) {
-                                    data = nazwa;
-                                }
-                            }
-                        }
-                    }
-                } else {
-
-                }
-            } catch (JSONException je) {
-                Log.i(JSONParser.TAG, "" + je.getLocalizedMessage());
-            }
-            return null;
-        }
-
-
-    }
 }

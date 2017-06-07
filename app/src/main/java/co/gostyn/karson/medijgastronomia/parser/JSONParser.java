@@ -14,9 +14,10 @@ import java.io.IOException;
 
 public class JSONParser {
 
-     private static final String MAIN_URL = "http://mgopsgostyn.pl/menu_o_1.json";
+    public static final String URL_O = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=o&day=0&ver=1";
+    public static final String URL_S = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=s&day=0&ver=1";
 
-    public static final String TAG = "TAG";
+    public static final String TAG = "TAG_KARSON";
 
      private static Response response;
 
@@ -29,10 +30,14 @@ public class JSONParser {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url(MAIN_URL)
+                    .url(URL_O)
                     .build();
             response = client.newCall(request).execute();
+            Log.e(TAG, "KKK" + response.body().string());
+
             return new JSONObject(response.body().string());
+
+
         } catch (@NonNull IOException | JSONException e) {
             Log.e(TAG, "karson" + e.getLocalizedMessage());
         }

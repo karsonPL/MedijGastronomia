@@ -1,72 +1,92 @@
 package co.gostyn.karson.medijgastronomia.objects;
 
+import static android.R.attr.id;
+
 /**
  * Created by karol on 2017-06-06.
  */
 
 public class MenuObject {
 
-    private int id;
-    private String rodzaj;
-    private String nazwa;
-    private String opis1;
-    private String opis2;
-    private String ilosc;
-    private String cena;
+    private String day;
+    private String data;
+    private String czynne;
+    private String dayName;
+    private String lok1open;
+    private String lok1close;
+    private String lok2open;
+    private String lok2close;
+    private String menuHTML;
 
-    public int getId() {
-        return id;
+    public String getDay() {
+        return day;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDay(String day) {
+        this.day = day;
     }
 
-    public String getRodzaj() {
-        return rodzaj;
+    public String getData() {
+        return data;
     }
 
-    public void setRodzaj(String rodzaj) {
-        this.rodzaj = rodzaj;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getCzynne() {
+        return czynne;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setCzynne(String czynne) {
+        this.czynne = czynne;
     }
 
-    public String getOpis1() {
-        return opis1;
+    public String getDayName() {
+        return dayName;
     }
 
-    public void setOpis1(String opis1) {
-        this.opis1 = opis1;
+    public void setDayName(String dayName) {
+        this.dayName = dayName;
     }
 
-    public String getOpis2() {
-        return opis2;
+    public String getLok1open() {
+        return lok1open;
     }
 
-    public void setOpis2(String opis2) {
-        this.opis2 = opis2;
+    public void setLok1open(String lok1open) {
+        this.lok1open = lok1open;
     }
 
-    public String getIlosc() {
-        return ilosc;
+    public String getLok1close() {
+        return lok1close;
     }
 
-    public void setIlosc(String ilosc) {
-        this.ilosc = ilosc;
+    public void setLok1close(String lok1close) {
+        this.lok1close = lok1close;
     }
 
-    public String getCena() {
-        return cena;
+    public String getLok2open() {
+        return lok2open;
     }
 
-    public void setCena(String cena) {
-        this.cena = cena;
+    public void setLok2open(String lok2open) {
+        this.lok2open = lok2open;
+    }
+
+    public String getLok2close() {
+        return lok2close;
+    }
+
+    public void setLok2close(String lok2close) {
+        this.lok2close = lok2close;
+    }
+
+    public String getMenuHTML() {
+        return menuHTML;
+    }
+
+    public void setMenuHTML(String menuHTML) {
+        this.menuHTML = menuHTML;
     }
 }
