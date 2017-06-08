@@ -33,10 +33,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.gostyn.karson.medijgastronomia.MainActivity" />
         </activity>
+
         <activity
             android:name=".Menu2Activity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_menu2"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="co.gostyn.karson.medijgastronomia.MainActivity" />
+
+        </activity>
     </application>
 
 </manifest>

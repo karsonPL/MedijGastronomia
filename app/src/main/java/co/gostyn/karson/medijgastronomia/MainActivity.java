@@ -13,6 +13,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Bind(R.id.button_medij)
     ImageView buttonMedij;
     @Bind(R.id.button2)
@@ -27,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+       // App app = (App)getApplication();
+
+
     }
+
+
 
 
     @OnClick({R.id.button2, R.id.button1})
@@ -45,4 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
 }

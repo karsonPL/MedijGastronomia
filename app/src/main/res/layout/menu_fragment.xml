@@ -9,19 +9,19 @@
     tools:context="co.gostyn.karson.medijgastronomia.MenuFragment">
 
     <TextView
-        android:id="@+id/tekst"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="ZUPY"/>
+        android:id="@+id/section_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <ListView android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:id="@+id/listView"
-        android:scrollbars="vertical"
-        android:layout_below="@+id/tekst"
+    <WebView
+        android:id="@+id/web1"
+
         android:layout_width="match_parent"
-        android:isScrollContainer="false"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+
+
+
+    </WebView>
 
 
 </RelativeLayout>
