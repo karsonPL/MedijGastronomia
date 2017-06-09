@@ -24,7 +24,6 @@ public class App extends Application {
     private Boolean isLoadedMenuS = false;
 
 
-
     @Override
     public void onCreate() {
         super.onCreate();

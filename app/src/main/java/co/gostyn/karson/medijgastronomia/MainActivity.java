@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG_KARSON";
     private App app;
 
-
     @Bind(R.id.button_medij)
     ImageView buttonMedij;
     @Bind(R.id.button2)

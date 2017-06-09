@@ -178,7 +178,6 @@ public class Menu2Activity extends AppCompatActivity {
 
             WebView wbMenu = (WebView) rootView.findViewById(R.id.menu);
 
-
             Bundle args = getArguments();
             int currentView = args.getInt(ARG_SECTION_NUMBER)-1;
 
