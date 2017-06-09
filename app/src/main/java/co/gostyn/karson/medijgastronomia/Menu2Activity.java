@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,7 +82,7 @@ public class Menu2Activity extends AppCompatActivity {
 
         //new GetJSONfromUrl().execute(URL_O);
 
-        // Log.e(TAG,app.arrayMenu.get(0).getCzynne());
+        // Log.e(TAG,app.arrayMenuO.get(0).getCzynne());
         // Log.e(TAG,"aaa"+app.getArrayMenu());
 
 
@@ -173,11 +172,11 @@ public class Menu2Activity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_menu2, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView tvMenuData = (TextView) rootView.findViewById(R.id.menu_data);
             //textView.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>" +
             //       "<table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></table>"));
 
-            WebView wb = (WebView) rootView.findViewById(R.id.web);
+            WebView wbMenu = (WebView) rootView.findViewById(R.id.menu);
 
 
             Bundle args = getArguments();
@@ -187,12 +186,15 @@ public class Menu2Activity extends AppCompatActivity {
             App app = (App) getActivity().getApplication();
 
 
-            String html = app.arrayMenu.get(currentView).getMenuHTML();
+            String html = app.getArrayMenuO().get(currentView).getMenuHTML();
 
 
-            Log.e(TAG,"view: "+currentView);
+            wbMenu.getSettings().setJavaScriptEnabled(true);
 
-            wb.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+
+            tvMenuData.setText(app.getArrayMenuO().get(currentView).getData());
+            wbMenu.loadDataWithBaseURL(App.getURL(), html, "text/html", "utf-8", null);
+
 
 
             return rootView;
@@ -221,29 +223,16 @@ public class Menu2Activity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
 
-            //app.arrayMenu.size()
-
-            return app.arrayMenu.size();
+            return app.getArrayMenuO().size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-           switch (position) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                    return app.arrayMenu.get(position).getDayName();
-            }
+
+            return app.getArrayMenuO().get(position).getDayName();
 
 
-
-            return null;
         }
     }
 

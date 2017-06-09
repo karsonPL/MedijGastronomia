@@ -9,7 +9,7 @@
     tools:context="co.gostyn.karson.medijgastronomia.MenuFragment">
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/menu_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
