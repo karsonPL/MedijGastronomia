@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="co.gostyn.karson.medijgastronomia.MenuActivity">
+    <item
+        android:id="@+id/change_menu_type"
+        android:orderInCategory="100"
+        android:title="@string/txt_other_menu_type_default"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>

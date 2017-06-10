@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,19 +21,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.gostyn.karson.medijgastronomia.objects.Keys;
 import co.gostyn.karson.medijgastronomia.objects.MenuObject;
+import co.gostyn.karson.medijgastronomia.utils.InternetConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String URL_O = "http://83.144.104.86/medij/api.php?for=0&typ=o&day=0&ver=1";
-
-//    public static final String URL_O = "http://test.gostyn.co/api.php?for=0&typ=o&day=0&ver=1";
-    public static final String URL_S = "http://test.gostyn.co/api.php?for=0&typ=s&day=0&ver=1";
     public static final String TAG = "TAG_KARSON";
     private App app;
 
@@ -51,18 +53,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        app = (App) getApplication();
+        app = (App) getApplication();   //instancja do zmiennych w App
 
-        Log.e(TAG, app.getIsLoadedMenuO().toString());
+        setMenuType(); //ustawienie w zaleznosci od pory dnia, tygodnia
+
+        if (InternetConnection.checkConnection(getApplicationContext())) { //sprawdzenie polaczenia z Internetem
+            app.setIsInternet(true);
+        } else {
+            Snackbar.make(findViewById(R.id.mainActivityLayout), R.string.msg_no_Internet, Snackbar.LENGTH_LONG).show();
+        }
+
+
+        //Log.e(TAG, app.getIsLoadedMenuO().toString());
 
         if (!app.getIsLoadedMenuO()) {
-            new GetJSONfromUrl().execute(URL_O,"o");
-           // app.setIsLoadedMenuO(true);
+            new GetJSONfromUrl().execute(App.getUrlO(),"o");
+            app.setIsLoadedMenuO(true);
         }
         if (!app.getIsLoadedMenuS()) {
-            new GetJSONfromUrl().execute(URL_S,"s");
+            new GetJSONfromUrl().execute(App.getUrlS(),"s");
             app.setIsLoadedMenuS(true);
         }
+
+
 
 
         buttonMedij.setClickable(true);
@@ -74,12 +87,11 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button2:
-                intent = new Intent(this, MenuActivity.class);
+                intent = new Intent(this, LokaleInfoActivity2.class);
                 startActivity(intent);
-
                 break;
             case R.id.button1:
-                intent = new Intent(this, Menu2Activity.class);
+                intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
                 break;
 
@@ -87,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 app.setIsLoadedMenuO(false);
                 break;
         }
-
     }
 
     private class GetJSONfromUrl extends AsyncTask<String, Void, String> {
@@ -119,10 +130,8 @@ public class MainActivity extends AppCompatActivity {
                 InputStream in = new BufferedInputStream(
                         connection.getInputStream());
 
-
                 //wypelnienie tabel
                 JSONObject json = new JSONObject(streamToString(in));
-
                 JSONArray array = json.getJSONArray(Keys.KEY_MENU);
 
                 int lenArray = array.length();
@@ -132,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                     for (int jIndex = 0; jIndex < lenArray; jIndex++) {
 
                         MenuObject model = new MenuObject();
-
 
                         JSONObject innerObject = array.getJSONObject(jIndex);
                         String day = innerObject.getString(Keys.KEY_DAY);
@@ -144,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
                         String lok2open = innerObject.getString(Keys.KEY_LOK2_OD);
                         String lok2close = innerObject.getString(Keys.KEY_LOK2_DO);
                         String menuHTML = innerObject.getString(Keys.KEY_MENU_HTML);
-
 
                         model.setDay(day);
                         model.setData(data);
@@ -160,8 +167,6 @@ public class MainActivity extends AppCompatActivity {
                         if (params[1] == "s") app.getArrayMenuS().add(model);
                     }
                 }
-
-
                 return null;
 
             } catch (Exception e) {
@@ -169,27 +174,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(MainActivity.class.getSimpleName(), e.toString());
                 return null;
             }
-
         }
 
-        // metoda wykonuje się po zakończeniu metody głównej,
-        // której wynik będzie przekazany;
-        // w tej metodzie mamy dostęp do UI
         @Override
         protected void onPostExecute(String result) {
-
-
-            // chowamy okno dialogowe
-
-
-            try {
-
-
-
-            } catch (Exception e) {
-                // obsłuż wyjątek
-                Log.d(MainActivity.class.getSimpleName(), e.toString());
-            }
             dialog.dismiss();
         }
     }
@@ -201,19 +189,36 @@ public class MainActivity extends AppCompatActivity {
         String line = null;
 
         try {
-
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line + "\n");
             }
-
             reader.close();
-
         } catch (IOException e) {
             // obsłuż wyjątek
             Log.d(MainActivity.class.getSimpleName(), e.toString());
         }
 
         return stringBuilder.toString();
+    }
+
+    private void setMenuType() {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = new Date();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+        timeFormat.setTimeZone( TimeZone.getTimeZone("Poland") );
+        Integer time = Integer.parseInt(timeFormat.format(currentDate));
+
+        if (time>1130 && time<1800) {
+            app.setWhatMenuType("o");
+            app.setMenuToolbarName(R.string.title_activity_menu_obiad);
+            app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_sniadanie);
+
+        } else {
+            app.setWhatMenuType("s");
+            app.setMenuToolbarName(R.string.title_activity_menu_sniadanie);
+            app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_obiad);
+        }
+        app.setIsDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
     }
 
 }

@@ -18,20 +18,13 @@ import butterknife.ButterKnife;
  * Created by Karol on 2017-06-06.
  */
 
-public class MenuFragment extends Fragment {
+public class LokaleInfoFragment extends Fragment {
 
-    @Bind(R.id.menu_data)
-    TextView sectionLabel;
-    @Bind(R.id.web1)
-    WebView web1;
 
     public static final String TAG = "TAG_KARSON";
 
-    // @Bind(R.id.tvMenuFragment)
 
-
-
-    public MenuFragment() {
+    public LokaleInfoFragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +39,12 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.menu_fragment, container, false);
-        ButterKnife.bind(this, view);
+        View view = inflater.inflate(R.layout.fragment_lokale_info, container, false);
+
+
+
+
+
 
 
         return view;
@@ -56,8 +53,6 @@ public class MenuFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //tvMenuFragment.setText("ddf");
 
 
     }

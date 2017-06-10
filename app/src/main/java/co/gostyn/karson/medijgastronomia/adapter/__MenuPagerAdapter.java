@@ -4,16 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import co.gostyn.karson.medijgastronomia.MenuFragment;
+import co.gostyn.karson.medijgastronomia.LokaleInfoFragment;
 
 /**
  * Created by Karol on 2017-06-06.
  */
 
-public class MenuPagerAdapter  extends FragmentStatePagerAdapter {
+public class __MenuPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public __MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -30,7 +30,7 @@ public class MenuPagerAdapter  extends FragmentStatePagerAdapter {
             case 5:
             case 6:
 
-                MenuFragment tab1 = new MenuFragment();
+                LokaleInfoFragment tab1 = new LokaleInfoFragment();
                 return tab1;
             default:
                 return null;

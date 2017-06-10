@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorBG"
         android:orientation="vertical"
-        tools:context="co.gostyn.karson.medijgastronomia.Menu2Activity$PlaceholderFragment">
+        tools:context="co.gostyn.karson.medijgastronomia.MenuActivity$PlaceholderFragment">
 
         <TextView
             android:id="@+id/menu_data"

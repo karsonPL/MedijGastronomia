@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class JSONParser {
+public class __JSONParser {
 
     public static final String URL_O = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=o&day=0&ver=1";
     public static final String URL_S = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=s&day=0&ver=1";

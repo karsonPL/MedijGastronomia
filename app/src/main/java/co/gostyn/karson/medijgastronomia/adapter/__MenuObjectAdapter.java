@@ -13,14 +13,14 @@ import java.util.List;
 import co.gostyn.karson.medijgastronomia.R;
 import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 
-public class MenuObjectAdapter extends ArrayAdapter<MenuObject> {
+public class __MenuObjectAdapter extends ArrayAdapter<MenuObject> {
 
     List<MenuObject> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public MenuObjectAdapter(Context context, List<MenuObject> objects) {
+    public __MenuObjectAdapter(Context context, List<MenuObject> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -36,7 +36,7 @@ public class MenuObjectAdapter extends ArrayAdapter<MenuObject> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder vh;
         if (convertView == null) {
-            View view = mInflater.inflate(R.layout.layout_row_view, parent, false);
+            View view = mInflater.inflate(R.layout.__layout_row_view, parent, false);
             vh = ViewHolder.create((RelativeLayout) view);
             view.setTag(vh);
         } else {

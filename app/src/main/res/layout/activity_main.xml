@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainActivityLayout"
     android:background="@color/colorBG"
     tools:context="co.gostyn.karson.medijgastronomia.MainActivity">
 
@@ -41,6 +42,7 @@
         android:drawableLeft="@drawable/ic_restaurant"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_restaurant"
+        android:textSize="15sp"
         android:padding="15dp"
         android:text="@string/start_button2_txt"
         android:textColor="#FFFFFF" />
@@ -55,6 +57,7 @@
         android:drawableLeft="@drawable/ic_restaurant"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_restaurant"
+        android:textSize="35sp"
         android:padding="15dp"
         android:text="@string/start_button1_txt"
         android:textColor="#FFFFFF" />
