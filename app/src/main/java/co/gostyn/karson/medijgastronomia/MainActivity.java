@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button2:
-                intent = new Intent(this, LokaleInfoActivity2.class);
+                intent = new Intent(this, LokaleInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button1:

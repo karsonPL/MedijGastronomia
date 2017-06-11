@@ -12,8 +12,8 @@
     <string name="txt_other_menu_type_obiad">-> obiad</string>
     <string name="txt_other_menu_type_sniadanie">-> śniadanie</string>
     <string name="title_activity_menu_default">toolbar</string>
-    <string name="title_activity_menu_obiad">MENU - OBIAD</string>
-    <string name="title_activity_menu_sniadanie">MENU - ŚNIADANIE</string>
-    <string name="title_activity_lokale_info">LokaleInfo</string>
+    <string name="title_activity_menu_obiad">Menu OBIAD</string>
+    <string name="title_activity_menu_sniadanie">Menu ŚNIADANIE</string>
+    <string name="title_activity_lokale_info">Informacje</string>
 
 </resources>

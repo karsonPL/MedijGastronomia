@@ -1,6 +1,5 @@
 package co.gostyn.karson.medijgastronomia.objects;
 
-import static android.R.attr.id;
 
 /**
  * Created by karol on 2017-06-06.

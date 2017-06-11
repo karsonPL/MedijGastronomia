@@ -25,15 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LokaleInfoActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="co.gostyn.karson.medijgastronomia.MainActivity" />
-        </activity>
-        <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu_default"
             android:parentActivityName=".MainActivity"
@@ -43,7 +34,7 @@
                 android:value="co.gostyn.karson.medijgastronomia.MainActivity" />
         </activity>
         <activity
-            android:name=".LokaleInfoActivity2"
+            android:name=".LokaleInfoActivity"
             android:label="@string/title_activity_lokale_info"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">

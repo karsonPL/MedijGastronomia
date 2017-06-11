@@ -49,14 +49,31 @@ public class MenuActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.menu_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+
+       // Log.e(TAG, "aa " + app.getIsDayOfWeek());
+
         //ustawienie tablayout na dniu tygodnia jaki wlasnie jest
-        if (app.getWhatMenuType() == "s" && app.getIsDayOfWeek() > 6) {
-            tabLayout.getTabAt(0).select();
-        } else {
-            tabLayout.getTabAt(app.getIsDayOfWeek() - 2).select();
+        switch (app.getIsDayOfWeek()) {
+            case 1: //niedziela
+                if (app.getWhatMenuType() == "s") {
+                    tabLayout.getTabAt(0).select();
+                } else {
+                    tabLayout.getTabAt(6).select();
+                }
+                break;
+            case 2: //Pn- So
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                if (app.getWhatMenuType() == "s") {
+                    tabLayout.getTabAt(0).select();
+                } else {
+                    tabLayout.getTabAt(app.getIsDayOfWeek() - 2).select();
+                }
+                break;
         }
-
-
 
 
 
