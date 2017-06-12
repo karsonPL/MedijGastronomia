@@ -14,7 +14,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:paddingTop="20dp"
-        android:text="Teraz jest czynne"
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -26,7 +25,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:textAlignment="center"
-        android:text="Zapraszamy na .....\njeszcze przez X godz. i X min."
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -38,17 +36,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:textAlignment="center"
-        android:text="Gostyń, ul. ......"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-         android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:paddingTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="GODZINY OTWARCIA W TYM TYGODNIU:"
         android:textColor="@android:color/black"
         android:textSize="12sp"
@@ -60,8 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginRight="10dp" />
 
 
 </LinearLayout>

@@ -218,7 +218,23 @@ public class MainActivity extends AppCompatActivity {
             app.setMenuToolbarName(R.string.title_activity_menu_sniadanie);
             app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_obiad);
         }
-        app.setIsDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
+        // ustawienie dnia tygodznia - pn = 0 ... n = 6
+        int day = 0;
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+            case 1: //niedziela
+                day = 6;
+                break;
+            case 2: //Pn- So
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+                break;
+        }
+        app.setIsDayOfWeek(day);
+
     }
 
 }

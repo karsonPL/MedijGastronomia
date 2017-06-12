@@ -1,21 +1,25 @@
 package co.gostyn.karson.medijgastronomia;
 
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class LokaleInfoActivity extends AppCompatActivity {
 
@@ -23,6 +27,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private App app = (App) getApplication();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +46,14 @@ public class LokaleInfoActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
     }
 
@@ -84,6 +89,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        App app;
 
         public PlaceholderFragment() {
         }
@@ -104,16 +110,139 @@ public class LokaleInfoActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_lokale_info, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            //TODO
+            TextView tvIsOpen = (TextView) rootView.findViewById(R.id.is_open_close);
+            TextView tvWelcome = (TextView) rootView.findViewById(R.id.open_close_how_long);
+            TextView tvAddress = (TextView) rootView.findViewById(R.id.address);
+            WebView wbOpenCloseHTML = (WebView) rootView.findViewById(R.id.open_close_html);
+            wbOpenCloseHTML.getSettings().setJavaScriptEnabled(true);
 
+            Bundle args = getArguments();
+            int currentView = args.getInt(ARG_SECTION_NUMBER) - 1;
 
+            app = (App) getActivity().getApplication();
+
+            if (currentView == 0) {
+                tvAddress.setText(getString(R.string.adr_lok1)); //wstawia adres lokalu
+                if (isOpen(0) != 0) {
+                    tvIsOpen.setText(R.string.jest_czynne); //czynne
+                    if (isOpen(0) == 1) {
+                        tvWelcome.setText(app.getString(R.string.welcomeS) + " "
+                                + app.getArrayMenuS().get(app.getIsDayOfWeek()).getLok1close());
+                    } else {
+                        tvWelcome.setText(app.getString(R.string.welcomeO) + " "
+                                + app.getArrayMenuO().get(app.getIsDayOfWeek()).getLok1close());
+                    }
+                } else {
+                    tvIsOpen.setTextColor(Color.RED);
+                    tvIsOpen.setText(R.string.jest_nieczynne); //nieczynne
+                    tvWelcome.setVisibility(View.GONE);
+                }
+                wbOpenCloseHTML.loadDataWithBaseURL(App.getURL(), openCloseHTML(0), "text/html", "utf-8", null);
+
+            } else {
+                tvAddress.setText(getString(R.string.adr_lok2));
+                if (isOpen(1) != 0) {
+                    tvIsOpen.setText(R.string.jest_czynne); //czynne
+                    tvWelcome.setText(app.getString(R.string.welcomeO) + " "
+                            + app.getArrayMenuO().get(app.getIsDayOfWeek()).getLok2close());
+                } else {
+                    tvIsOpen.setTextColor(Color.RED);
+                    tvIsOpen.setText(R.string.jest_nieczynne);  //nieczynne
+                    tvWelcome.setVisibility(View.GONE);
+                }
+                wbOpenCloseHTML.loadDataWithBaseURL(App.getURL(), openCloseHTML(1), "text/html", "utf-8", null);
+            }
 
 
             return rootView;
         }
+
+        private int isOpen(int lokal) { //zwraca: 0 - zamkniete; 1 - otwarte sniadanie; 2 - otwarte obiad
+
+            Date currentDate = new Date();
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
+            timeFormat.setTimeZone(TimeZone.getTimeZone("Poland"));
+            Integer time = Integer.parseInt(timeFormat.format(currentDate)); //aktualna godzina jako Int - HHmm
+
+
+            //ustalenie pozycji tablicy z ktorej ma brac dane w zaleznosci od dnia tygodnia
+            int arrayPoz = app.getIsDayOfWeek();
+            int timeOpen, timeClose;
+
+            if (lokal == 0) {
+                timeOpen = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1open()).replace(":", ""));
+                timeClose = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1close()).replace(":", ""));
+                if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
+                    return 1;
+                }
+                timeOpen = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok1open()).replace(":", ""));
+                timeClose = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok1close()).replace(":", ""));
+                if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
+                    return 2;
+                }
+            } else {
+                timeOpen = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok2open()).replace(":", ""));
+                timeClose = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok2close()).replace(":", ""));
+                if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
+                    return 2;
+                }
+            }
+            //Log.e("TAG_KARSON", "aa " + timeOpen + " bbb " + dateOpenString);
+            return 0;
+        }
+
+        private String openCloseHTML(int lokal) {
+            String html = "";
+
+            html = "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"style-api.css\">" +
+                    "<title></title></head><body bgcolor=\"#f0feda\">" +
+                    "<table align=\"center\" cellspacing=\"0\" cellpadding=\"2\" border=\"1\">";
+            if (lokal == 0) {
+
+                html += "<tr><td></td><td align=\"center\"><font class=\"tekst-m\">ŚNIADANIE</td>" +
+                        "<td  align=\"center\"><font class=\"tekst-m\">OBIAD</td></tr>";
+
+                for (int i = 0; i < 7; i++) {
+                    html += "<tr>" +
+                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "</td>";
+                    if (i < 5) {
+                        html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                                isNieczynne(app.getArrayMenuS().get(i).getLok1open(), app.getArrayMenuS().get(i).getLok1close()) +
+                                "</td>";
+                    } else {
+                        html += "<td align=\"center\"><font class=\"tekst-m\">nieczynne</td>";
+                    }
+                    html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                            isNieczynne(app.getArrayMenuO().get(i).getLok1open(), app.getArrayMenuO().get(i).getLok1close()) +
+                            "</td></tr>";
+                }
+            } else {
+                html += "<tr><td></td><td  align=\"center\"><font class=\"tekst-m\">OBIAD</td></tr>";
+
+                for (int i = 0; i < 7; i++) {
+                    html += "<tr>" +
+                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "</td>";
+
+                    html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                            isNieczynne(app.getArrayMenuO().get(i).getLok2open(), app.getArrayMenuO().get(i).getLok2close()) +
+                            "</td></tr>";
+
+                }
+            }
+            html += "</body></html>";
+            return html;
+        }
+
+        private String isNieczynne(String open, String close) {
+
+            if (Integer.parseInt(open.replace(":", "")) == 0) {
+                return "nieczynne";
+            } else {
+                return open + " - " + close;
+            }
+        }
+
     }
 
     /**
@@ -151,4 +280,6 @@ public class LokaleInfoActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }

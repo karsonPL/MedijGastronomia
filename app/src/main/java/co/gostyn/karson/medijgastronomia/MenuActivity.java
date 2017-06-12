@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,28 +52,11 @@ public class MenuActivity extends AppCompatActivity {
        // Log.e(TAG, "aa " + app.getIsDayOfWeek());
 
         //ustawienie tablayout na dniu tygodnia jaki wlasnie jest
-        switch (app.getIsDayOfWeek()) {
-            case 1: //niedziela
-                if (app.getWhatMenuType() == "s") {
-                    tabLayout.getTabAt(0).select();
-                } else {
-                    tabLayout.getTabAt(6).select();
-                }
-                break;
-            case 2: //Pn- So
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-                if (app.getWhatMenuType() == "s") {
-                    tabLayout.getTabAt(0).select();
-                } else {
-                    tabLayout.getTabAt(app.getIsDayOfWeek() - 2).select();
-                }
-                break;
+        if (app.getWhatMenuType() == "s" && app.getIsDayOfWeek() > 4) {
+            tabLayout.getTabAt(0).select();
+        } else {
+            tabLayout.getTabAt(app.getIsDayOfWeek()).select();
         }
-
 
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
