@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,8 +37,11 @@ import co.gostyn.karson.medijgastronomia.utils.InternetConnection;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG_KARSON";
+
     private App app;
 
+    @Bind(R.id.mainActivityLayout)
+    RelativeLayout mainActivityLayout;
     @Bind(R.id.button_medij)
     ImageView buttonMedij;
     @Bind(R.id.button2)
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
 
     Intent intent;
+    int tryAgain = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,44 +65,56 @@ public class MainActivity extends AppCompatActivity {
         if (InternetConnection.checkConnection(getApplicationContext())) { //sprawdzenie polaczenia z Internetem
             app.setIsInternet(true);
         } else {
-            Snackbar.make(findViewById(R.id.mainActivityLayout), R.string.msg_no_Internet, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mainActivityLayout, R.string.msg_no_Internet, Snackbar.LENGTH_LONG).show();
         }
-
 
         //Log.e(TAG, app.getIsLoadedMenuO().toString());
-
-        if (!app.getIsLoadedMenuO()) {
-            new GetJSONfromUrl().execute(App.getUrlO(),"o");
-            app.setIsLoadedMenuO(true);
-        }
-        if (!app.getIsLoadedMenuS()) {
-            new GetJSONfromUrl().execute(App.getUrlS(),"s");
-            app.setIsLoadedMenuS(true);
-        }
+        getDateFromUrl(); //pobranie JSONa z danymi z serwera i wladowanie do tablel
 
 
-
-
-        buttonMedij.setClickable(true);
+        //buttonMedij.setClickable(true);
 
     }
 
 
     @OnClick({R.id.button2, R.id.button1})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.button2:
-                intent = new Intent(this, LokaleInfoActivity.class);
-                startActivity(intent);
+
+                if (app.getIsLoadedMenuO() && app.getIsLoadedMenuS()) {
+                    intent = new Intent(this, LokaleInfoActivity.class);
+                    startActivity(intent);
+                } else {
+                    if (tryAgain > 2) { getDateFromUrl(); tryAgain=0;} else { tryAgain++; }
+                    Snackbar.make(mainActivityLayout, "Nie pobrano danych, spróbuj później!", Snackbar.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.button1:
-                intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
+                if (app.getIsLoadedMenuO() && app.getIsLoadedMenuS()) {
+                    intent = new Intent(this, MenuActivity.class);
+                    startActivity(intent);
+                } else {
+                    if (tryAgain > 2) { getDateFromUrl(); tryAgain=0;} else { tryAgain++; }
+                    Snackbar.make(mainActivityLayout, "Nie pobrano danych, spróbuj później!", Snackbar.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.button_medij:
                 app.setIsLoadedMenuO(false);
                 break;
+        }
+    }
+
+    private void getDateFromUrl() {
+        if (!app.getIsLoadedMenuO()) {
+            new GetJSONfromUrl().execute(App.getUrlO(), "o");
+            //if (app.getLoadedMenuOok()) { app.setIsLoadedMenuO(true); }
+        }
+        if (!app.getIsLoadedMenuS()) {
+            new GetJSONfromUrl().execute(App.getUrlS(), "s");
+            //if (app.getLoadedMenuSok()) { app.setIsLoadedMenuS(true); }
         }
     }
 
@@ -111,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             // wyświetlamy okienko dialogowe każące czekać
-            dialog.setMessage("Czekaj...");
+            dialog.setMessage("Pobieranie danych! Czekaj...");
             dialog.show();
 
         }
@@ -125,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 // zakładamy, że jest tylko jeden URL
                 URL url = new URL(params[0]);
                 URLConnection connection = url.openConnection();
+                connection.setConnectTimeout(7000); //7 sekund na probe polaczenia
 
                 // pobranie danych do InputStream
                 InputStream in = new BufferedInputStream(
@@ -166,18 +184,34 @@ public class MainActivity extends AppCompatActivity {
                         if (params[1] == "o") app.getArrayMenuO().add(model);
                         if (params[1] == "s") app.getArrayMenuS().add(model);
                     }
+                    if (params[1] == "o") app.setIsLoadedMenuO(true);
+                    if (params[1] == "s") app.setIsLoadedMenuS(true);
                 }
                 return null;
 
             } catch (Exception e) {
                 // obsłuż wyjątek
-                Log.d(MainActivity.class.getSimpleName(), e.toString());
+                //Log.d(MainActivity.class.getSimpleName(), e.toString());
+                //Log.d(TAG, "blad "+e.toString());
                 return null;
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
+            //Log.e(TAG, "result: " + app.getIsLoadedMenuO());
+            dialog.dismiss();
+            if (app.getIsLoadedMenuO() && app.getIsLoadedMenuS()) {
+                Snackbar.make(mainActivityLayout, "Pobrano dane!", Snackbar.LENGTH_LONG).show();
+            } else {
+                //Snackbar.make(mainActivityLayout, "????Nie pobrano danych, spróbuj później!", Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onCancelled(String s) {
+            super.onCancelled(s);
+            //Log.e(TAG, "onCancelled: "+s );
             dialog.dismiss();
         }
     }
@@ -205,10 +239,10 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         Date currentDate = new Date();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
-        timeFormat.setTimeZone( TimeZone.getTimeZone("Poland") );
+        timeFormat.setTimeZone(TimeZone.getTimeZone("Poland"));
         Integer time = Integer.parseInt(timeFormat.format(currentDate));
 
-        if (time>1130 && time<1800) {
+        if (time > 1130 && time < 1800) {
             app.setWhatMenuType("o");
             app.setMenuToolbarName(R.string.title_activity_menu_obiad);
             app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_sniadanie);

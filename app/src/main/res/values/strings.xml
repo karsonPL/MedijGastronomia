@@ -5,7 +5,6 @@
     <string name="adr_lok1">Lokal Gastronomiczny KAPI \nGostyń, ul. Sikorskiego 4a</string>
     <string name="adr_lok2">Sala bankietowa MEDIJ \nGostyń, ul. Wielkopolska 1</string>
 
-    <string name="action_settings">Settings</string>
     <string name="msg_no_Internet">Brak połączenia z Internetem!</string>
     <string name="txt_other_menu_type_default">-> other</string>
     <string name="txt_other_menu_type_obiad">-> obiad</string>

@@ -39,9 +39,6 @@ public class App extends Application {
         arrayMenuS = new ArrayList<>();
 
 
-
-        // Log.e("TAG_KARSON","aaa"+getArrayMenu());
-
     }
 
 

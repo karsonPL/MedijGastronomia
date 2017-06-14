@@ -1,31 +1,15 @@
 package co.gostyn.karson.medijgastronomia.parser;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 public class __JSONParser {
 
-    public static final String URL_O = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=o&day=0&ver=1";
+  /*  public static final String URL_O = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=o&day=0&ver=1";
     public static final String URL_S = "http://83.144.104.86/medij/api_generujHTML.php?for=0&typ=s&day=0&ver=1";
 
     public static final String TAG = "TAG_KARSON";
 
      private static Response response;
 
-    /**
-     * Get Table Booking Charge
-     *
-     * @return JSON Object
-     */
+
     public static JSONObject getDataFromWeb() {
         try {
             OkHttpClient client = new OkHttpClient();
