@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainActivityLayout"
     android:background="@color/colorBG"
+    android:fitsSystemWindows="true"
+
     tools:context="co.gostyn.karson.medijgastronomia.MainActivity">
 
     <ImageView
@@ -38,14 +40,12 @@
         android:layout_above="@+id/button_medij"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:background="@color/colorPrimary"
-        android:drawableLeft="@drawable/ic_restaurant"
+        android:background="@drawable/shape"
         android:drawablePadding="10dp"
-        android:drawableStart="@drawable/ic_restaurant"
-        android:textSize="15sp"
         android:padding="15dp"
         android:text="@string/start_button2_txt"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/button1"
@@ -53,13 +53,13 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/shape"
         android:drawableLeft="@drawable/ic_restaurant"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_restaurant"
-        android:textSize="35sp"
         android:padding="15dp"
         android:text="@string/start_button1_txt"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="35sp" />
 
 </RelativeLayout>

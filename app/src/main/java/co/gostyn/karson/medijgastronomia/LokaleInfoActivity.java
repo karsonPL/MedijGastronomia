@@ -197,36 +197,36 @@ public class LokaleInfoActivity extends AppCompatActivity {
 
             html = "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"style-api.css\">" +
                     "<title></title></head><body bgcolor=\"#f0feda\">" +
-                    "<table align=\"center\" cellspacing=\"0\" cellpadding=\"2\" border=\"1\">";
+                    "<table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">";
             if (lokal == 0) {
 
-                html += "<tr><td></td><td align=\"center\"><font class=\"tekst-m\">ŚNIADANIE</td>" +
-                        "<td  align=\"center\"><font class=\"tekst-m\">OBIAD</td></tr>";
+                html += "<tr><td></td><td align=\"center\"><font class=\"tekst-m\">ŚNIADANIE<HR></td>" +
+                        "<td  align=\"center\"><font class=\"tekst-m\">OBIAD<HR></td></tr>";
 
                 for (int i = 0; i < 7; i++) {
                     html += "<tr>" +
-                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "</td>";
+                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "&nbsp;&nbsp;<HR></td>";
                     if (i < 5) {
-                        html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                        html += "<td align=\"center\"><font class=\"tekst-m\">&nbsp;&nbsp;" +
                                 isNieczynne(app.getArrayMenuS().get(i).getLok1open(), app.getArrayMenuS().get(i).getLok1close()) +
-                                "</td>";
+                                "&nbsp;&nbsp;<HR></td>";
                     } else {
-                        html += "<td align=\"center\"><font class=\"tekst-m\">nieczynne</td>";
+                        html += "<td align=\"center\"><font class=\"tekst-m\">&nbsp;&nbsp;nieczynne&nbsp;&nbsp;<HR></td>";
                     }
-                    html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                    html += "<td align=\"center\"><font class=\"tekst-m\">&nbsp;&nbsp;" +
                             isNieczynne(app.getArrayMenuO().get(i).getLok1open(), app.getArrayMenuO().get(i).getLok1close()) +
-                            "</td></tr>";
+                            "&nbsp;&nbsp;<HR></td></tr>";
                 }
             } else {
-                html += "<tr><td></td><td  align=\"center\"><font class=\"tekst-m\">OBIAD</td></tr>";
+                html += "<tr><td></td><td  align=\"center\"><font class=\"tekst-m\">OBIAD<HR></td></tr>";
 
                 for (int i = 0; i < 7; i++) {
                     html += "<tr>" +
-                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "</td>";
+                            "<td><font class=\"tekst-m\">" + app.getArrayMenuO().get(i).getDayName() + "&nbsp;&nbsp;<HR></td>";
 
-                    html += "<td align=\"center\"><font class=\"tekst-m\">" +
+                    html += "<td align=\"center\"><font class=\"tekst-m\">&nbsp;&nbsp;" +
                             isNieczynne(app.getArrayMenuO().get(i).getLok2open(), app.getArrayMenuO().get(i).getLok2close()) +
-                            "</td></tr>";
+                            "&nbsp;&nbsp;<HR></td></tr>";
 
                 }
             }
@@ -280,6 +280,5 @@ public class LokaleInfoActivity extends AppCompatActivity {
             return null;
         }
     }
-
 
 }

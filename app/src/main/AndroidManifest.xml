@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="co.gostyn.karson.medijgastronomia">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,7 +29,8 @@
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu_default"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.gostyn.karson.medijgastronomia.MainActivity" />
@@ -37,7 +39,8 @@
             android:name=".LokaleInfoActivity"
             android:label="@string/title_activity_lokale_info"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="co.gostyn.karson.medijgastronomia.MainActivity" />

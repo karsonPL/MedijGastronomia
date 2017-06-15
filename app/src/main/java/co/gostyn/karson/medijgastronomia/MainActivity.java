@@ -3,14 +3,18 @@ package co.gostyn.karson.medijgastronomia;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.button_medij:
-                app.setIsLoadedMenuO(false);
+                //app.setIsLoadedMenuO(false);
                 break;
         }
     }
@@ -202,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
             //Log.e(TAG, "result: " + app.getIsLoadedMenuO());
             dialog.dismiss();
             if (app.getIsLoadedMenuO() && app.getIsLoadedMenuS()) {
-                Snackbar.make(mainActivityLayout, "Pobrano dane!", Snackbar.LENGTH_LONG).show();
+                //Snackbar.make(mainActivityLayout, "Pobrano dane!", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Pobrano dane!", Toast.LENGTH_SHORT).show();
             } else {
                 //Snackbar.make(mainActivityLayout, "????Nie pobrano danych, spróbuj później!", Snackbar.LENGTH_LONG).show();
             }

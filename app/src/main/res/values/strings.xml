@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Medij Gastronomia</string>
     <string name="start_button1_txt">MENU</string>
-    <string name="start_button2_txt">Informacje o lokalach</string>
+    <string name="start_button2_txt">Informacje o naszych lokalach</string>
     <string name="adr_lok1">Lokal Gastronomiczny KAPI \nGostyń, ul. Sikorskiego 4a</string>
     <string name="adr_lok2">Sala bankietowa MEDIJ \nGostyń, ul. Wielkopolska 1</string>
 

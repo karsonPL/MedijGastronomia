@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="enterAlways"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -27,8 +27,10 @@
             android:id="@+id/menu_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary1"
             app:tabGravity="center"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorAccent" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -36,6 +38,7 @@
         android:id="@+id/menu_vp_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
