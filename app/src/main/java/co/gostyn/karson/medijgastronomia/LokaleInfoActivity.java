@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -114,6 +115,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
             TextView tvIsOpen = (TextView) rootView.findViewById(R.id.is_open_close);
             TextView tvWelcome = (TextView) rootView.findViewById(R.id.open_close_how_long);
             TextView tvAddress = (TextView) rootView.findViewById(R.id.address);
+            ImageView ivImg = (ImageView) rootView.findViewById(R.id.open_close_img);
             WebView wbOpenCloseHTML = (WebView) rootView.findViewById(R.id.open_close_html);
             wbOpenCloseHTML.getSettings().setJavaScriptEnabled(true);
 
@@ -137,6 +139,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
                     tvIsOpen.setTextColor(Color.RED);
                     tvIsOpen.setText(R.string.jest_nieczynne); //nieczynne
                     tvWelcome.setVisibility(View.GONE);
+                    ivImg.setImageResource(R.mipmap.ic_round_red);
                 }
                 wbOpenCloseHTML.loadDataWithBaseURL(App.getURL(), openCloseHTML(0), "text/html", "utf-8", null);
 
@@ -150,6 +153,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
                     tvIsOpen.setTextColor(Color.RED);
                     tvIsOpen.setText(R.string.jest_nieczynne);  //nieczynne
                     tvWelcome.setVisibility(View.GONE);
+                    ivImg.setImageResource(R.mipmap.ic_round_red);
                 }
                 wbOpenCloseHTML.loadDataWithBaseURL(App.getURL(), openCloseHTML(1), "text/html", "utf-8", null);
             }

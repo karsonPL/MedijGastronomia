@@ -1,5 +1,6 @@
 package co.gostyn.karson.medijgastronomia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,8 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public static final String TAG = "TAG_KARSON";
-    private App app;
+    private App app ;
+    private String menuType; //tmp przechowywanie ktory typ menu (przy recreate blad byl - 5 lub 7 tablayotow)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         app = (App) getApplication();
+        menuType = app.getWhatMenuType();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.menu_toolbar);
         toolbar.setTitle(app.getMenuToolbarName());
@@ -49,10 +52,10 @@ public class MenuActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-       // Log.e(TAG, "aa " + app.getIsDayOfWeek());
+        // Log.e(TAG, "aa " + app.getIsDayOfWeek());
 
         //ustawienie tablayout na dniu tygodnia jaki wlasnie jest
-        if (app.getWhatMenuType() == "s" && app.getIsDayOfWeek() > 4) {
+        if (menuType == "s" && app.getIsDayOfWeek() > 4) {
             tabLayout.getTabAt(0).select();
         } else {
             tabLayout.getTabAt(app.getIsDayOfWeek()).select();
@@ -90,8 +93,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.change_menu_type) { // zmiana z obiadu na sniadanie i odswiezenie activyty
-
-            if (app.getWhatMenuType() == "s") {
+            if (menuType == "s") {
                 app.setWhatMenuType("o");
                 app.setMenuToolbarName(R.string.title_activity_menu_obiad);
                 app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_sniadanie);
@@ -101,9 +103,12 @@ public class MenuActivity extends AppCompatActivity {
                 app.setMenuToolbarName(R.string.title_activity_menu_sniadanie);
                 app.setOtherMenuPressOnToolbar(R.string.txt_other_menu_type_obiad);
             }
+            //recreate(); //restart Activity
+            Intent mIntent = getIntent();
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+            finish();
+            startActivity(mIntent);
 
-            startActivity(getIntent());
-            this.finish();
             return true;
         }
 
@@ -146,6 +151,7 @@ public class MenuActivity extends AppCompatActivity {
             wbMenu.getSettings().setJavaScriptEnabled(true);
             App app = (App) getActivity().getApplication();
 
+
             Bundle args = getArguments();
             int currentView = args.getInt(ARG_SECTION_NUMBER) - 1;
 
@@ -159,10 +165,13 @@ public class MenuActivity extends AppCompatActivity {
                 tvMenuData.setText(app.getArrayMenuS().get(currentView).getData());
                 wbMenu.loadDataWithBaseURL(App.getURL(), html, "text/html", "utf-8", null);
             }
+
             return rootView;
         }
 
+
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -186,21 +195,21 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            if (app.getWhatMenuType() == "o") {
+            if (menuType == "o") {
                 return app.getArrayMenuO().size();
             } else {
                 return app.getArrayMenuS().size();
             }
+           //return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            if (app.getWhatMenuType() == "o") {
+            if (menuType == "o") {
                 return app.getArrayMenuO().get(position).getDayName();
             } else {
                 return app.getArrayMenuS().get(position).getDayName();
             }
-
 
         }
     }

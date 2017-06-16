@@ -1,8 +1,16 @@
 package co.gostyn.karson.medijgastronomia;
 
 import android.app.Application;
+import android.os.Build;
 
+import com.jaredrummler.android.device.DeviceName;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 
@@ -12,12 +20,13 @@ import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 
 public class App extends Application {
 
-    private static final String APP_VER = "1.0";
-    private static final String URL = "http://83.144.104.86/medij/";
-    private static final String URL_O = "http://83.144.104.86/medij/api.php?for=0&typ=o&day=0&ver=1";
-    private static final String URL_S = "http://83.144.104.86/medij/api.php?for=0&typ=s&day=0&ver=1";
-    //private static final String URL_O = "http://test.gostyn.co/api.php?for=0&typ=o&day=0&ver="+APP_VER;
-    //private static final String URL_O = "http://test.gostyn.co/api.php?for=0&typ=s&day=0&ver="+APP_VER;
+    private static final String APP_VER = "1_0_beta";
+   // private static final String URL = "http://83.144.104.86/medij/";
+   // private static final String URL_O = "http://83.144.104.86/medij/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+   // private static final String URL_S = "http://83.144.104.86/medij/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+    private static final String URL = "http://test.gostyn.co/";
+    private static final String URL_O = "http://test.gostyn.co/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+    private static final String URL_S = "http://test.gostyn.co/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+DeviceName.getDeviceName().replace(" ", "_");
 
 
     private ArrayList<MenuObject> arrayMenuO;
@@ -37,6 +46,12 @@ public class App extends Application {
 
         arrayMenuO = new ArrayList<>();
         arrayMenuS = new ArrayList<>();
+
+       // String deviceName = android.os.Build.MODEL;
+       // String deviceMan = android.os.Build.MANUFACTURER;
+        //String mDeviceName = DeviceName.getDeviceName();
+
+        //Log.e("TAG_KAR", "onCreate: "+deviceName );
 
 
     }
@@ -117,4 +132,46 @@ public class App extends Application {
     public void setIsDayOfWeek(int isDayOfWeek) {
         this.isDayOfWeek = isDayOfWeek;
     }
+
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+
+    private static String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
+    }
+
 }

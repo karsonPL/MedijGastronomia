@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBG"
-    android:orientation="vertical"
     android:isScrollContainer="true"
+    android:orientation="vertical"
     tools:context="co.gostyn.karson.medijgastronomia.LokaleInfoActivity$PlaceholderFragment">
 
     <TextView
@@ -18,6 +18,13 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/open_close_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher_round" />
+
     <TextView
         android:id="@+id/open_close_how_long"
         android:layout_width="wrap_content"
@@ -29,11 +36,6 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher_round"/>
 
     <TextView
         android:id="@+id/address"
@@ -50,8 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:text="GODZINY OTWARCIA W TYM TYGODNIU:"
         android:textColor="@android:color/black"
         android:textSize="12sp"
@@ -63,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:background="@color/colorBG" />
 
 
 </LinearLayout>

@@ -3,14 +3,10 @@ package co.gostyn.karson.medijgastronomia;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -132,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             // wyświetlamy okienko dialogowe każące czekać
-            dialog.setMessage("Pobieranie danych! Czekaj...");
+            dialog.setMessage("Proszę czekać...");
             dialog.show();
 
         }
@@ -146,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 // zakładamy, że jest tylko jeden URL
                 URL url = new URL(params[0]);
                 URLConnection connection = url.openConnection();
-                connection.setConnectTimeout(7000); //7 sekund na probe polaczenia
+                connection.setConnectTimeout(9000); //9 sekund na probe polaczenia
 
                 // pobranie danych do InputStream
                 InputStream in = new BufferedInputStream(
@@ -234,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             reader.close();
         } catch (IOException e) {
             // obsłuż wyjątek
-            Log.d(MainActivity.class.getSimpleName(), e.toString());
+            //Log.d(MainActivity.class.getSimpleName(), e.toString());
         }
 
         return stringBuilder.toString();
