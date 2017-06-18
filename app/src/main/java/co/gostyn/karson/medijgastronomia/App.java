@@ -21,18 +21,17 @@ import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 public class App extends Application {
 
     private static final String APP_VER = "1_0_beta";
-   // private static final String URL = "http://83.144.104.86/medij/";
-   // private static final String URL_O = "http://83.144.104.86/medij/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
-   // private static final String URL_S = "http://83.144.104.86/medij/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
-    private static final String URL = "http://test.gostyn.co/";
-    private static final String URL_O = "http://test.gostyn.co/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
-    private static final String URL_S = "http://test.gostyn.co/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+DeviceName.getDeviceName().replace(" ", "_");
+     private static final String URL = "http://83.144.104.86/medij/";
+     private static final String URL_O = "http://83.144.104.86/medij/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+     private static final String URL_S = "http://83.144.104.86/medij/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+    //private static final String URL = "http://test.gostyn.co/";
+    //private static final String URL_O = "http://test.gostyn.co/api.php?typ=o&day=0&ver=" + APP_VER + "&ip=" + getDeviceName().replace(" ", "_");
+    //private static final String URL_S = "http://test.gostyn.co/api.php?typ=s&day=0&ver=" + APP_VER + "&ip=" + DeviceName.getDeviceName().replace(" ", "_");
 
 
     private ArrayList<MenuObject> arrayMenuO;
     private ArrayList<MenuObject> arrayMenuS;
-    private Boolean isLoadedMenuO = false;
-    private Boolean isLoadedMenuS = false;
+    private Boolean isLoadedMenuOS = false;
     private Boolean isInternet = false;
     private int menuToolbarName;
     private int otherMenuPressOnToolbar;
@@ -47,8 +46,8 @@ public class App extends Application {
         arrayMenuO = new ArrayList<>();
         arrayMenuS = new ArrayList<>();
 
-       // String deviceName = android.os.Build.MODEL;
-       // String deviceMan = android.os.Build.MANUFACTURER;
+        // String deviceName = android.os.Build.MODEL;
+        // String deviceMan = android.os.Build.MANUFACTURER;
         //String mDeviceName = DeviceName.getDeviceName();
 
         //Log.e("TAG_KAR", "onCreate: "+deviceName );
@@ -65,21 +64,15 @@ public class App extends Application {
         return arrayMenuS;
     }
 
-    public Boolean getIsLoadedMenuO() {
-        return isLoadedMenuO;
+    public Boolean getIsLoadedMenuOS() {
+        return isLoadedMenuOS;
     }
 
-    public void setIsLoadedMenuO(Boolean isLoadedMenuO) {
-        this.isLoadedMenuO = isLoadedMenuO;
+    public void setIsLoadedMenuOS(Boolean isLoadedMenuOS) {
+        this.isLoadedMenuOS = isLoadedMenuOS;
     }
 
-    public Boolean getIsLoadedMenuS() {
-        return isLoadedMenuS;
-    }
-
-    public void setIsLoadedMenuS(Boolean isLoadedMenuS) {
-        this.isLoadedMenuS = isLoadedMenuS;
-    }
+    public static String getAppVer() { return APP_VER;   }
 
     public static String getURL() {
         return URL;

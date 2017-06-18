@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +63,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu_lokale_info, menu); //OFF
+        // getMenuInflater().inflate(R.menu.menu_lokale_info, menu); //OFF
         return true;
     }
 
@@ -172,13 +173,16 @@ public class LokaleInfoActivity extends AppCompatActivity {
 
             //ustalenie pozycji tablicy z ktorej ma brac dane w zaleznosci od dnia tygodnia
             int arrayPoz = app.getIsDayOfWeek();
+
             int timeOpen, timeClose;
 
             if (lokal == 0) {
-                timeOpen = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1open()).replace(":", ""));
-                timeClose = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1close()).replace(":", ""));
-                if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
-                    return 1;
+                if (arrayPoz < 5) {// sniadania sprawdza tylko do piatku
+                    timeOpen = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1open()).replace(":", ""));
+                    timeClose = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1close()).replace(":", ""));
+                    if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
+                        return 1;
+                    }
                 }
                 timeOpen = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok1open()).replace(":", ""));
                 timeClose = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok1close()).replace(":", ""));
@@ -192,7 +196,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
                     return 2;
                 }
             }
-            //Log.e("TAG_KARSON", "aa " + timeOpen + " bbb " + dateOpenString);
+            //Log.e("TAG_KARSON", "aa  bbb ");
             return 0;
         }
 

@@ -7,6 +7,7 @@ package co.gostyn.karson.medijgastronomia.objects;
 
 public class MenuObject {
 
+    private String appVer;
     private String day;
     private String data;
     private String czynne;
@@ -16,6 +17,14 @@ public class MenuObject {
     private String lok2open;
     private String lok2close;
     private String menuHTML;
+
+    public String getAppVer() {
+        return appVer;
+    }
+
+    public void setAppVer(String appVer) {
+        this.appVer = appVer;
+    }
 
     public String getDay() {
         return day;

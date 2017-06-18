@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary1"
-            app:tabGravity="center"
+            app:tabGravity="fill"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorAccent" />
 
@@ -38,8 +38,7 @@
         android:id="@+id/menu_vp_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
+        android:background="@color/colorBG"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

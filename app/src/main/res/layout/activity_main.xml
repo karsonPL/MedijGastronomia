@@ -7,8 +7,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorBG"
     android:fitsSystemWindows="true"
-
     tools:context="co.gostyn.karson.medijgastronomia.MainActivity">
+
+    <ImageView
+        android:id="@+id/button_medij"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary1"
+        android:padding="15dp"
+        android:src="@drawable/medij_logo_white" />
 
     <ImageView
         android:id="@+id/bg_start"
@@ -16,30 +24,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
+        android:layout_below="@+id/button_medij"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@mipmap/bg_start" />
-
-
-    <ImageView
-        android:id="@+id/button_medij"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:padding="15dp"
-        android:src="@drawable/medij_logo_white" />
-
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_medij"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/shape"
         android:drawablePadding="10dp"
         android:padding="15dp"
