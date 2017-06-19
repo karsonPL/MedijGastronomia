@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,12 +65,25 @@ public class MainActivity extends AppCompatActivity {
         if (InternetConnection.checkConnection(getApplicationContext())) { //sprawdzenie polaczenia z Internetem
             app.setIsInternet(true);
             getDateFromUrl(); //pobranie JSONa z danymi z serwera i wladowanie do tablel
+
+            checkVersion(); //sprawdzenie czy jest nowa wersja app
+
         } else {
             new ToastColor(getApplicationContext(), "Brak połączenia z Internetem!", Color.RED);
         }
 
         //Log.e(TAG, app.getIsLoadedMenuOS().toString());
         //buttonMedij.setClickable(true);
+    }
+
+    private void checkVersion() {
+//TODO
+       // if (App.getAppVer() != app.getArrayMenuS().get(0).getAppVer()) {
+
+     //       Log.e(TAG, "checkVersion: "+App.getAppVer()+" "+app.getArrayMenuO().get(0).getCzynne());
+      //  }
+
+
     }
 
 
@@ -167,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray array = json.getJSONArray(Keys.KEY_MENU);
 
                     int lenArray = array.length();
-                    //Log.e(TAG, "doInBackground: " + lenArray);
+
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
 

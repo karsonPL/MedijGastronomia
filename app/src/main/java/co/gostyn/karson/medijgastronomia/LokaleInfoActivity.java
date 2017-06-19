@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -179,7 +178,7 @@ public class LokaleInfoActivity extends AppCompatActivity {
             if (lokal == 0) {
                 if (arrayPoz < 5) {// sniadania sprawdza tylko do piatku
                     timeOpen = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1open()).replace(":", ""));
-                    timeClose = Integer.parseInt((app.getArrayMenuS().get(arrayPoz).getLok1close()).replace(":", ""));
+                    timeClose = Integer.parseInt((app.getArrayMenuO().get(arrayPoz).getLok1open()).replace(":", ""));
                     if (timeOpen != 0 && timeClose != 0 && timeOpen < time && timeClose > time) {
                         return 1;
                     }
