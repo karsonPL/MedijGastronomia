@@ -20,13 +20,13 @@ import co.gostyn.karson.medijgastronomia.objects.MenuObject;
 
 public class App extends Application {
 
-    private static final String APP_VER = "1_0_beta";
-     private static final String URL = "http://83.144.104.86/medij/";
-     private static final String URL_O = "http://83.144.104.86/medij/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
-     private static final String URL_S = "http://83.144.104.86/medij/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
-    //private static final String URL = "http://test.gostyn.co/";
-    //private static final String URL_O = "http://test.gostyn.co/api.php?typ=o&day=0&ver=" + APP_VER + "&ip=" + getDeviceName().replace(" ", "_");
-    //private static final String URL_S = "http://test.gostyn.co/api.php?typ=s&day=0&ver=" + APP_VER + "&ip=" + DeviceName.getDeviceName().replace(" ", "_");
+    private static final String APP_VER = "1.0";
+     //private static final String URL = "http://83.144.104.86/medij/";
+     //private static final String URL_O = "http://83.144.104.86/medij/api.php?typ=o&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+     //private static final String URL_S = "http://83.144.104.86/medij/api.php?typ=s&day=0&ver="+APP_VER+"&ip="+getLocalIpAddress();
+    private static final String URL = "http://medij.gostyn.co/";
+    private static final String URL_O = "http://medij.gostyn.co/api.php?typ=o&day=0&ver=" + APP_VER + "&ip=" + getDeviceName().replace(" ", "_");
+    private static final String URL_S = "http://medij.gostyn.co/api.php?typ=s&day=0&ver=" + APP_VER + "&ip=" + DeviceName.getDeviceName().replace(" ", "_");
 
 
     private ArrayList<MenuObject> arrayMenuO;
